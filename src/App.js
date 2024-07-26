@@ -83,5 +83,7 @@ const App = () => {
 
 export default App;
 
-const hostaddress = 'http://localhost:8000';
+// const hostaddress = 'http://192.168.68.222:8000';
+// const hostaddress = 'http://localhost:8000';
+const hostaddress = 'http://dkpoosh.ddns.net:8000';
 export {hostaddress};

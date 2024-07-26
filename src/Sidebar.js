@@ -104,7 +104,7 @@ function Sidebar() {
           <div> <img class="object-contain h-12 w-26" src={profile} alt="Logo" /></div>
           <div className="flex flex-col ">
             <span className="text-gray-600 text-sm">ADMIN</span>
-            <span className="text-sm text-white underline underline-offset-4">Stanley Huang</span>
+            <span className="text-sm text-white underline underline-offset-4">ADMIN</span>
           </div>
         </div>
         {/**creates white seperator line */}

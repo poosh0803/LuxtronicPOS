@@ -15,17 +15,17 @@ const OrderManagement = () => {
     const [orderType, setOrderType] = useState(null); // State to store the selected order type
     const navigate = useNavigate(); //used to navigate to inventoryitems page
 
-    useEffect(() => {
-        const fetchOrders = async () => {
-            try {
-                const response = await axios.get(`${hostaddress}/orders`);
-                setOrders(response.data);
-            } catch (error) {
-                console.error('Error fetching orders:', error);
-                alert('Failed to fetch orders');
-            }
-        };
+    const fetchOrders = async () => {
+        try {
+            const response = await axios.get(`${hostaddress}/orders`);
+            setOrders(response.data);
+        } catch (error) {
+            console.error('Error fetching orders:', error);
+            alert('Failed to fetch orders');
+        }
+    };
 
+    useEffect(() => {
         fetchOrders();
     }, []);
 
@@ -33,8 +33,17 @@ const OrderManagement = () => {
         // Handle edit order
     };
 
-    const handleDelete = (orderId) => {
+    const handleDelete = async (orderId) => {
         // Handle delete order
+        if (window.confirm("Are you sure you want to delete this inventory item?")) {
+        try {
+            await axios.delete(`${hostaddress}/orders/${orderId}`);
+            fetchOrders(); // Update users list after deletion
+          } catch (error) {
+            console.error('Error deleting order:', error);
+            alert('Failed to delete order. Please try again.');
+          }
+        }
     };
 
     const openModal = (order) => {

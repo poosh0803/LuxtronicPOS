@@ -7,10 +7,7 @@ import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { hostaddress } from './App';
-
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
+import { hostaddress} from './App';
 const InvoiceForm = ({ orderType }) => {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
@@ -290,13 +287,13 @@ const InvoiceForm = ({ orderType }) => {
     />
   </div>
   <div className="relative mb-4">
-    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="clientName">
       Name
     </label>
     <input
       type="text"
-      name="name"
-      id="name"
+      name="clientName"
+      id="clientName"
       value={formValues.clientName}
       onChange={handleChange}
       className="w-full px-3 py-2 border rounded"
