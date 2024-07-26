@@ -309,8 +309,9 @@ app.get('/inventory/:itemId', (req, res) => {
 // delete inventory 
 app.delete("/inventory/:inventoryId", (req, res) => {
   const { inventoryId } = req.params; 
-
-  const sql = 'DELETE FROM inventory WHERE inventory_id = ?'; 
+  const sql1 = 'DELETE FROM inventory_products WHERE inventory_id = ?';
+  const sql = 'DELETE FROM inventory WHERE inventory_id = ?';
+  pool.query(sql1, [inventoryId], (err, results) => {});
   pool.query(sql, [inventoryId], (err, results) => {
       if (err) {
           console.error('Error deleting inventory:', err);
