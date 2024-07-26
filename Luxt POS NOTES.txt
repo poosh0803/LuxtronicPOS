@@ -6,6 +6,7 @@ Order
 	PAY Statues
 	Only remove first item on list from inventory
 	Payment method showing "invoice"
+	Add Order button missing close button
 
 Inventory
 	Edit button
@@ -16,4 +17,3 @@ Invoice
 	Not showing index
 	No brand
 	No pay statues
-	

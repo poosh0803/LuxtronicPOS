@@ -4,8 +4,8 @@ const mysql = require("mysql2"); // Use mysql2 library for database connectivity
 const fileUpload = require("express-fileupload");
 const path = require("path");
 const bcrypt = require('bcrypt');
-const saltRounds = 10; 
-const hostaddress = 'http://192.168.68.222:8000';
+const saltRounds = 10;
+const hostaddress = 'http://dkpoosh.ddns.net:8000';
 
 const app = express();
 app.use(cors());
