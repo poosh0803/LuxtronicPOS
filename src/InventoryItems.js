@@ -14,7 +14,6 @@ import { Bar } from "react-chartjs-2";
 import "chart.js/auto";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { hostaddress } from "./App";
-
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -372,7 +371,9 @@ const InventoryItems = () => {
                   <img
                     src={itemDetails.image_url}
                     alt={itemDetails.item}
-                    className="w-full h-auto rounded-md shadow-lg"
+                    width={200}
+                    height={200}
+                    className="rounded-md shadow-lg"
                   />
                 </div>
                 <div>

@@ -2,6 +2,7 @@ BUGS
 
 Order
 	Edit button
+	(DONE)Delete button
 	regenerate invoice after save
 	PAY Statues
 	Only remove first item on list from inventory
@@ -10,7 +11,7 @@ Order
 
 Inventory
 	Edit button
-	picture auto size
+	(DONE)picture auto size
 	Searchbox
 
 Invoice
