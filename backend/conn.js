@@ -422,6 +422,23 @@ app.post('/inventory/:inventory_id', (req, res) => {
       res.status(201).json({ message: 'Product added successfully', product_id: results.insertId });
   });
 });
+// //Update inventory item
+// app.mod('/inventory/:inventory_id', (req, res) => {
+//   const inventoryId = req.params.inventory_id;
+//   const sqlUpdate = `
+//       UPDATE inventory_products
+//       SET status = ?
+//       WHERE inventory_id = ? AND serial_number = ?;
+//   `;
+//   pool.query(sqlUpdate, [status, inventoryId, serial_number], (error, results) => {
+//       if (error) {
+//           console.error('Error updating product:', error);
+//           res.status(500).json({ error: 'Internal Server Error' });
+//           return;
+//       }
+//       res.status(200).json({ message: 'Product updated successfully' });
+//   });
+// });
 
 // Update a product within a specific inventory item
 app.put('/inventory/:inventory_id', (req, res) => {

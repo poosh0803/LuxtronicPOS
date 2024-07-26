@@ -134,7 +134,7 @@ const InventoryDrawer = ({
       fetch(`${hostaddress}/inventory/${inventory.inventory_id}`, {
         method: "DELETE",
       });
-      fetchInventory();
+      //   fetchInventory();
     }
     fetch(url, {
       method: method,
@@ -157,39 +157,40 @@ const InventoryDrawer = ({
         alert("Failed to save inventory: " + error.message);
       });
   };
-  //   const handleSubmit = (e) => {
-  //     e.preventDefault();
 
-  //     if (!validateForm()) {
-  //       console.error("Validation failed:", errors);
-  //       return; // Stop the submission if the form is invalid
-  //     }
-  //     const method = inventory ? "PUT" : "POST"; // Determine method based on if editing or creating new
-  //     const url = inventory
-  //       ? `${hostaddress}/inventory/${inventory.inventory_id}`
-  //       : `${hostaddress}/inventory`;
-  //     if(inventory){inventoryData.inventory_id = inventory.inventory_id;}
-  //     fetch(url, {
-  //       method: method,
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify(inventoryData),
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+
+  //   if (!validateForm()) {
+  //     console.error("Validation failed:", errors);
+  //     return; // Stop the submission if the form is invalid
+  //   }
+  //   const method = inventory ? "PUT" : "POST"; // Determine method based on if editing or creating new
+  //   const url = inventory
+  //     ? `${hostaddress}/inventory/${inventory.inventory_id}`
+  //     : `${hostaddress}/inventory`;
+  //   if(inventory){inventoryData.inventory_id = inventory.inventory_id;}
+  //   fetch(url, {
+  //     method: method,
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(inventoryData),
+  //   })
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error("Failed to save inventory data");
+  //       }
+  //       return response.json();
   //     })
-  //       .then((response) => {
-  //         if (!response.ok) {
-  //           throw new Error("Failed to save inventory data");
-  //         }
-  //         return response.json();
-  //       })
-  //       .then(() => {
-  //         alert(`Inventory saved successfully! ${inventoryData.image_url}`);
-  //         closeDrawer();
-  //         fetchInventory();;
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error:", error);
-  //         alert("Failed to save inventory: " + error.message);
-  //       });
-  //   };
+  //     .then(() => {
+  //       alert(`Inventory saved successfully! ${inventoryData.image_url}`);
+  //       closeDrawer();
+  //       fetchInventory();;
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error:", error);
+  //       alert("Failed to save inventory: " + error.message);
+  //     });
+  // };
   // Only render the drawer if it is open
   if (!isOpen) return null;
 
