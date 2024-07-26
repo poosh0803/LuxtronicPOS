@@ -1,2 +1,2 @@
-# LuxtronicBackend
+# Luxtronic Point Of Sale System
  
