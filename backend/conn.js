@@ -5,7 +5,7 @@ const fileUpload = require("express-fileupload");
 const path = require("path");
 const bcrypt = require('bcrypt');
 const saltRounds = 10; 
-
+const hostaddress = 'http://192.168.68.222:8000';
 
 const app = express();
 app.use(cors());
@@ -257,7 +257,7 @@ app.get('/inventory', (req, res) => {
     // Append the image URL to each inventory item
     const inventoryWithImages = inventoryResults.map(item => ({
       ...item,
-      image_url: `http://localhost:8000${item.image_url}`
+      image_url: `${hostaddress}${item.image_url}`
     }));
 
     res.status(200).json(inventoryWithImages);
@@ -283,7 +283,7 @@ app.get('/inventory/:itemId', (req, res) => {
 
     const itemDetails = inventoryResults[0];
 
-    const imageUrl = `http://localhost:8000${itemDetails.image_url}`; // Assuming localhost:8000 is your server address
+    const imageUrl = `${hostaddress}${itemDetails.image_url}`; // Assuming localhost:8000 is your server address
 
     pool.query(productsQuery, [itemId], (err, productsResults) => {
       if (err) {
@@ -772,6 +772,33 @@ app.post('/orders', (req, res) => {
     res.status(200).json(results);
   });
 });*/
+
+// delete orders
+app.delete("/orders/:id", (req, res) => {
+  const { id } = req.params; 
+  const sql1 = 'DELETE FROM order_details WHERE order_id = ?';
+  const sql = 'DELETE FROM orders WHERE id = ?';
+  pool.query(sql1, [id], (err, results) => {
+    // if (err) {
+    //     console.error('Error deleting order:', err);
+    //     return res.status(500).send({ message: 'Failed to delete order', error: err.sqlMessage });
+    // }
+    // if (results.affectedRows === 0) {
+    //     return res.status(404).send({ message: 'Order not found' }); 
+    // }
+    // res.send({ message: 'Order deleted successfully' });
+});
+  pool.query(sql, [id], (err, results) => {
+      if (err) {
+          console.error('Error deleting order:', err);
+          return res.status(500).send({ message: 'Failed to delete order', error: err.sqlMessage });
+      }
+      if (results.affectedRows === 0) {
+          return res.status(404).send({ message: 'Order not found' }); 
+      }
+      res.send({ message: 'Order deleted successfully' });
+  });
+});
 
 app.get('/orders', (req, res) => {
   pool.getConnection((err, connection) => {
