@@ -35,7 +35,7 @@ const OrderManagement = () => {
 
     const handleDelete = async (orderId) => {
         // Handle delete order
-        if (window.confirm("Are you sure you want to delete this inventory item?")) {
+        if (window.confirm("Are you sure you want to delete this order?")) {
         try {
             await axios.delete(`${hostaddress}/orders/${orderId}`);
             fetchOrders(); // Update users list after deletion

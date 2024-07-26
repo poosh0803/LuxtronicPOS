@@ -1,0 +1,19 @@
+BUGS
+
+Order
+	Edit button
+	regenerate invoice after save
+	PAY Statues
+	Only remove first item on list from inventory
+	Payment method showing "invoice"
+
+Inventory
+	Edit button
+	picture auto size
+	Searchbox
+
+Invoice
+	Not showing index
+	No brand
+	No pay statues
+	
