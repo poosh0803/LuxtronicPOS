@@ -103,25 +103,25 @@ const InventoryManagement = () => {
     setIsDrawerOpen(true);
   };
 
-  const saveInventory = (inventoryData) => {
-    const url = editingInventory
-      ? `/inventory/${editingInventory.inventory_id}`
-      : "/inventory";
-    const method = editingInventory ? "PUT" : "POST";
-    fetch(url, {
-      method: method,
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(inventoryData),
-    })
-      .then((response) => response.json())
-      .then(() => {
-        alert("Inventory saved successfully!");
-        setIsDrawerOpen(false);
-        fetchInventory();
-        setEditingInventory(null);
-      })
-      .catch((error) => alert("Failed to save inventory: " + error.message));
-  };
+  // const saveInventory = (inventoryData) => {
+  //   const url = editingInventory
+  //     ? `/inventory/${editingInventory.inventory_id}`
+  //     : "/inventory";
+  //   const method = editingInventory ? "PUT" : "POST";
+  //   fetch(url, {
+  //     method: method,
+  //     headers: { "Content-Type": "application/json" },
+  //     body: JSON.stringify(inventoryData),
+  //   })
+  //     .then((response) => response.json())
+  //     .then(() => {
+  //       alert("Inventory saved successfully!");
+  //       setIsDrawerOpen(false);
+  //       fetchInventory();
+  //       setEditingInventory(null);
+  //     })
+  //     .catch((error) => alert("Failed to save inventory: " + error.message));
+  // };
 
   useEffect(() => {
     fetchInventory();
@@ -142,9 +142,10 @@ const InventoryManagement = () => {
       <InventoryDrawer
         isOpen={isDrawerOpen}
         closeDrawer={() => setIsDrawerOpen(false)}
-        saveInventory={saveInventory}
+        // saveInventory={saveInventory}
         editMode={editingInventory !== null}
         editData={editingInventory}
+        inventory={editingInventory}
         fetchInventory={fetchInventory}
       />
       <hr class="h-px mt-3 mb-3 border-2 border-orange-500"></hr>

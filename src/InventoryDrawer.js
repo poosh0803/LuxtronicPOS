@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { hostaddress } from "./App";
 
-const InventoryDrawer = ({ isOpen, closeDrawer, fetchInventory }) => {
+const InventoryDrawer = ({
+  isOpen,
+  closeDrawer,
+  inventory,
+  fetchInventory,
+}) => {
   const [inventoryData, setInventoryData] = useState({
     item: "",
-
     price_from_supplier: "",
     retail_price: "",
     supplier_name: "",
@@ -17,6 +21,37 @@ const InventoryDrawer = ({ isOpen, closeDrawer, fetchInventory }) => {
   });
   const [errors, setErrors] = useState({});
 
+  useEffect(() => {
+    if (inventory) {
+      setInventoryData({
+        item: inventory.item,
+        price_from_supplier: inventory.price_from_supplier,
+        retail_price: inventory.retail_price,
+        supplier_name: inventory.supplier_name,
+        supplier_email: inventory.supplier_email,
+        barcode: inventory.barcode,
+        model: inventory.model,
+        brand: inventory.brand,
+        brief_description: inventory.brief_description,
+        image_url: inventory.image_url,
+      });
+    } else {
+      setInventoryData({
+        item: "",
+        price_from_supplier: "",
+        retail_price: "",
+        supplier_name: "",
+        supplier_email: "",
+        barcode: "",
+        model: "",
+        brand: "",
+        brief_description: "",
+        image_url: "",
+      });
+    }
+  }, [inventory]);
+
+  // Handle form field changes
   const handleInputChange = async (event) => {
     const { name, value, files } = event.target;
     if (name === "image") {
@@ -47,20 +82,20 @@ const InventoryDrawer = ({ isOpen, closeDrawer, fetchInventory }) => {
     });
 
     if (!response.ok) {
+      alert("Failed to upload image");
       throw new Error("Failed to upload image");
     }
 
     const data = await response.json();
     return data.imageUrl;
   };
-
+  // Validate form data
   const validateForm = () => {
     const newErrors = {};
 
     if (!inventoryData.item) {
       newErrors.item = "Item name is required.";
     }
-
     if (
       !inventoryData.price_from_supplier ||
       isNaN(inventoryData.price_from_supplier)
@@ -76,60 +111,56 @@ const InventoryDrawer = ({ isOpen, closeDrawer, fetchInventory }) => {
     if (!inventoryData.supplier_email) {
       newErrors.supplier_email = "Supplier email is required.";
     }
+    if (!inventoryData.image_url) {
+      newErrors.image_url = "Image is required.";
+      alert("Image is required.");
+    }
     // Continue for other fields
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!validateForm()) {
       console.error("Validation failed:", errors);
-      return;
+      return; // Stop the submission if the form is invalid
     }
-
-    try {
-      const response = await fetch(`${hostaddress}/inventory`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(inventoryData),
+    const method = inventory ? "PUT" : "POST"; // Determine method based on if editing or creating new
+    const url = inventory
+      ? `${hostaddress}/inventory/${inventory.inventory_id}`
+      : `${hostaddress}/inventory`;
+    if(inventory){inventoryData.inventory_id = inventory.inventory_id;}
+    fetch(url, {
+      method: method,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(inventoryData),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to save inventory data");
+        }
+        return response.json();
+      })
+      .then(() => {
+        alert(`Inventory saved successfully! ${inventoryData.image_url}`);
+        closeDrawer();
+        fetchInventory();;
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        alert("Failed to save inventory: " + error.message);
       });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Failed to save inventory data");
-      }
-
-      await response.json();
-      closeDrawer();
-      fetchInventory();
-      setInventoryData({
-        item: "",
-
-        price_from_supplier: "",
-        retail_price: "",
-        supplier_name: "",
-        supplier_email: "",
-        barcode: "",
-        model: "",
-        brand: "",
-        brief_description: "",
-        image_url: "",
-      });
-    } catch (error) {
-      console.error("Error:", error);
-      alert("Failed to add inventory: " + error.message);
-    }
   };
-
+  // Only render the drawer if it is open
   if (!isOpen) return null;
 
   return (
     <div className="overflow-auto fixed right-0 top-0 w-96 h-full bg-white shadow-lg z-50 p-4">
-      <h2 className="text-lg font-semibold">Add New Inventory</h2>
+      <h2 className="text-lg font-semibold">
+        {inventory ? "Edit Inventory" : "Add New Inventory"}
+      </h2>
       <form onSubmit={handleSubmit}>
         {Object.entries(inventoryData).map(([key, value]) =>
           key !== "image_url" ? (
