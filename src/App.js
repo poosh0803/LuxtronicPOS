@@ -62,7 +62,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Dashboard from './Dashboard';
-import Login from './login'; 
+import Login from './login';
 
 const App = () => {
   return (
@@ -83,7 +83,7 @@ const App = () => {
 
 export default App;
 
-const hostaddress = 'http://192.168.68.222:8000';
+// const hostaddress = 'http://192.168.68.222:8000';
 // const hostaddress = 'http://localhost:8000';
-// const hostaddress = 'http://dkpoosh.ddns.net:8000';
+const hostaddress = 'http://dkpoosh.ddns.net:8000';
 export {hostaddress};
