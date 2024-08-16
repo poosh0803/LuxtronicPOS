@@ -10,7 +10,7 @@ Order
 	Add Order button missing close button
 
 Inventory
-	Edit button
+	(WIP)Edit button
 	(DONE)picture auto size
 	Searchbox
 
